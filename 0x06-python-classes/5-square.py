@@ -1,55 +1,46 @@
 #!/usr/bin/python3
+
+"""Write a class Square that defines a square by: (based on 4-square.py) """
+
+
 class Square:
+    """Represents a square.
+    Private instance attribute: size:
+        - property def size(self)
+        - property setter def size(self, value)
+    Instantiation with optional size.
+    Public instance method: def area(self).
+    Public instance method: def my_print(self).
+    """
 
-    """ Class Square that defines methods and attributes for a square object"""
-
-    def __init__(self, size=0, position=(0, 0)):
-        """ Class Constructor"""
-        self.size = size
-        self.position = position
+    def __init__(self, size=0):
+        """Initializes the data."""
+        self.__size = size
 
     @property
     def size(self):
-        """ Private Attribute size Getter """
-        return (self.__size)
+        """Retrieves the size."""
+        return self.__size
 
     @size.setter
     def size(self, value):
-        """ Private Attribute size Setter """
+        """Sets the size to a value."""
         if not isinstance(value, int):
             raise TypeError("size must be an integer")
         elif value < 0:
             raise ValueError("size must be >= 0")
-        else:
-            self.__size = value
-
-    @property
-    def position(self):
-        """ Private Attribute position Getter """
-        return (self.__position)
-
-    @position.setter
-    def position(self, value):
-        """ Private Attribute position Setter """
-        if not isinstance(value, tuple) or len(value) != 2:
-            raise TypeError("position must be a tuple of 2 positive integers")
-        elif not isinstance(value[0], int) or not isinstance(value[1], int):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        elif value[0] < 0 or value[1] < 0:
-            raise TypeError("position must be a tuple of 2 positive integers")
-        else:
-            self.__position = value
+        self.__size = value
 
     def area(self):
-        """ Method that calculates current square area """
-        return (self.__size * self.__size)
+        """Returns the current square area."""
+        return self.__size ** 2
 
     def my_print(self):
-        """ Method that prints in stdout the square with the char # """
-        if self.size == 0:
+        """Prints to stdout the square with the character #."""
+        if self.__size == 0:
             print()
         else:
-            for i in range(self.__position[1]):
+            for i in range(0, self.__size):
+                for j in range(0, self.__size):
+                    print("#", end="")
                 print()
-            for j in range(self.size):
-                print("{}{}".format(' '*self.__position[0], '#'*self.__size))

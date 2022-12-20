@@ -1,67 +1,86 @@
 #!/usr/bin/python3
-class Square:
 
-    """ Class Square that defines methods and attributes for a square object"""
+"""Write a class Square that defines a square by: (based on 6-square.py) """
+
+
+class Square:
+    """Represents a square.
+    Private instance attribute: size:
+        - property def size(self)
+        - property setter def size(self, value)
+    Private instance attribute: position:
+        - property def position(self)
+        - property setter def position(self, value)
+    Instantiation with optional size and optional position.
+    Public instance method: def area(self).
+    Public instance method: def my_print(self).
+    """
 
     def __init__(self, size=0, position=(0, 0)):
-        """ Class Constructor"""
-        self.size = size
-        self.position = position
+        """Initializes the data."""
+        self.__size = size
+        self.__position = position
+
+    def __str__(self):
+        """Str method for print from main module."""
+        my_str = ""
+        if self.__size == 0:
+            return ''
+        else:
+            my_str += '\n' * self.__position[1]
+            for i in range(0, self.__size):
+                my_str += ' ' * self.__position[0]
+                my_str += '#' * self.__size
+                my_str += '\n'
+            return my_str[:-1]
 
     @property
     def size(self):
-        """ Private Attribute size Getter """
-        return (self.__size)
+        """Retrieves the size."""
+        return self.__size
 
     @size.setter
     def size(self, value):
-        """ Private Attribute size Setter """
+        """Sets the size to a value."""
         if not isinstance(value, int):
             raise TypeError("size must be an integer")
         elif value < 0:
             raise ValueError("size must be >= 0")
-        else:
-            self.__size = value
+        self.__size = value
 
     @property
     def position(self):
-        """ Private Attribute position Getter """
-        return (self.__position)
+        """Retrieves the position."""
+        return self.__position
 
     @position.setter
     def position(self, value):
-        """ Private Attribute position Setter """
-        if (not isinstance(value, tuple) or len(value) != 2):
+        """Sets the position to a value."""
+        if not isinstance(value, tuple) or len(value) != 2:
             raise TypeError("position must be a tuple of 2 positive integers")
-        elif (value[0] < 0 or value[1] < 0):
+        if not isinstance(value[0], int) or not isinstance(value[1], int):
             raise TypeError("position must be a tuple of 2 positive integers")
-        else:
-            self.__position = value
+        if value[0] < 0 or value[1] < 0:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        self.__position = value
 
     def area(self):
-        """ Method that calculates current square area """
-        return (self.__size * self.__size)
+        """Returns the current square area."""
+        return self.__size ** 2
 
     def my_print(self):
-        """ Method that prints in stdout the square with the char # """
-        if self.size == 0:
+        """Prints to stdout the square with the character #,
+        at the position given by the position attribute.
+        """
+        if self.__size == 0:
             print()
         else:
-            for i in range(self.__position[1]):
+            for y in range(0, self.__position[1]):
                 print()
-            for j in range(self.size):
-                print("{}{}".format(' '*self.__position[0], '#'*self.__size))
-
-    def __str__(self):
-        """ Prints square to stdout """
-        sqstr = ""
-        if self.size == 0:
-            return (sqstr)
-        else:
-            for i in range(self.position[1]):
-                sqstr += "\n"
-            for j in range(self.size):
-                sqstr += "{}{}".format(' '*self.__position[0], '#'*self.__size)
-                if j != (self.size - 1):
-                    sqstr += "\n"
-        return (sqstr)
+            for i in range(0, self.__size):
+                for x in range(0, self.__position[0]):
+                    print(" ", end="")
+                for j in range(0, self.__size):
+                    print("#", end="")
+                print()
+            return ''

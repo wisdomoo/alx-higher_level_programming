@@ -1,51 +1,57 @@
 #!/usr/bin/python3
-class Square:
 
-    """ Class Square that defines methods and attributes for a square object"""
+"""Write a class Square that defines a square by: (based on 4-square.py) """
+
+
+class Square:
+    """Represents a square.
+    Private instance attribute: size:
+        - property def size(self)
+        - property setter def size(self, value)
+    Instantiation with optional size.
+    Public instance method: def area(self).
+    """
 
     def __init__(self, size=0):
-        """ Class Constructor """
-        self.size = size
+        """Initializes the data."""
+        self.__size = size
 
     def __eq__(self, other):
-        """ Equal """
-        return self.area() == other.area()
+        """Equal."""
+        if hasattr(other, 'size'):
+            return self.__size == other.__size
+        return self.__size == other
 
     def __ne__(self, other):
-        """ Not equal """
-        return self.area() != other.area()
-
-    def __gt__(self, other):
-        """ Greater than """
-        return self.area() > other.area()
-
-    def __ge__(self, other):
-        """ Greater or Equal """
-        return self.area() >= other.area()
-
-    def __le__(self, other):
-        """ Less or Equal """
-        return self.area() <= other.area()
+        """Not equal."""
+        return not self.__eq__(other)
 
     def __lt__(self, other):
-        """ Less than  """
-        return self.area() < other.area()
+        """Less than."""
+        if hasattr(other, 'size'):
+            return self.__size < other.__size
+        return self.__size < other
+
+    def __le__(self, other):
+        """Less than or equal."""
+        if hasattr(other, 'size'):
+            return self.__size <= other.__size
+        return self.__size <= other
 
     @property
     def size(self):
-        """ Private Attribute size Getter """
-        return (self.__size)
+        """Retrieves the size."""
+        return self.__size
 
     @size.setter
     def size(self, value):
-        """ Private Attribute size Setter """
-        if not isinstance(value, int) and not isinstance(value, float):
+        """Sets the size to a value."""
+        if not isinstance(value, int) or not isinstance(value, float):
             raise TypeError("size must be a number")
         elif value < 0:
             raise ValueError("size must be >= 0")
-        else:
-            self.__size = value
+        self.__size = value
 
     def area(self):
-        """ Method that calculates current square area """
-        return (self.__size * self.__size)
+        """Returns the current square area."""
+        return self.__size ** 2
