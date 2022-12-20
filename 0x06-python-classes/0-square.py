@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+
+
+"""A Script that writes an empty class Square that defines a square"""
+
+
 class Square:
-    """Empty Class defining a square"""
+    """Represent a square."""
     pass
